@@ -1,0 +1,20 @@
+A simple non-heap memory library for optimized applications
+to use:
+    to get memory:
+        specified type* var = (specified type*)getMem(amount);
+        or
+        specified type* var = (specified type*)getMem(amount)->location;
+        or
+        struct mem_part* var = getMem(amount); if you're a pussy
+        and use var->location;
+    to mark memory as unused, reuseable:
+        freeMem(ptr)
+    you can also change maximum memory size with
+        #define BLOCK_LIST_SIZE_REPLACE
+        #define BLOCK_LIST_SIZE {multiple of 8}
+    or directly change the block size, default is (BLOCK_LIST_SIZE * 8)
+        #define BLOCK_SIZE_REPLACE
+        #define BLOCK_SIZE {multiple of 64}
+    if you ever want to max out the BLOCK use +OVERHEAD or -OVERHEAD
+        getMem(BLOCK_SIZE_FUNCTIONAL);
+        and youll have about 127 extra, but not really, just dont mess with the alignment or everything explodes

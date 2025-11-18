@@ -1,0 +1,4 @@
+Simple bit-dynamic flag system,
+initFlags(): run once, never care again, initalizes the values in flags[]
+setFlag(flag, ptr): sets a flag in the pointer param
+getFlab(flag, int): returns true if flag is in int param

@@ -1,0 +1,5 @@
+The maddhack library, it's a library by Fanta for C that includes a lot of utils for mics things:
+flag system,
+optimized memory system,
+128bit int handlers,
+and generic C hackery

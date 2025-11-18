@@ -1,0 +1,22 @@
+Holy-C like types and bit counts.
+U0:   function,        void,
+I0:   function,        void,
+Bool: bool,            _Bool/bool,U8,
+U1:   bool,            _Bool/bool,U8,
+I1:   bool,            _Bool/bool,I8,
+U8:   8 bit unsigned,  unsigned char,
+I8:   8 bit signed,    signed char,
+U16:  16 bit unsigned, unsigned short int,
+I16:  16 bit signed,   signed short int,
+U32:  32 bit unsigned, unsigned int,
+I32:  32 bit signed,   signed int,
+U64:  64 bit signed,   unsigned long long,
+I64:  64 bit signed,   signed long long,
+U128,128 bit unsigned, unsigned __int128, gcc/clang only
+I128,128 bit signed    signed __int128, gcc/clang only
+F32:  32 bit float,    float,
+F64:  64 bit float,    double,
+F80:  80 bit float,    long double,   gcc/clang/intelx86 only
+F128:128 bit float,    __float128,    gcc/clang only
+UMax:The maximum int size,
+UMax_FORMAT: The std *f for UMax (%d, %ull...)
