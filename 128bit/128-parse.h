@@ -20,7 +20,7 @@ static inline unsigned digit_val(char c) {
     return 255u;
 }
 
-static inline U128 str_to_u128(const char *s, UMax base) {
+static inline U128 str_to_u128(const char *s, U8 base) {
     if (!s)
         return 0;
     

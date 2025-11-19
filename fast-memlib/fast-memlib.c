@@ -28,13 +28,13 @@ static UMax live_cnt = 0; // amount of block list used
 #define ALIGN_UP(x) (((x) + (A_ALIGN - 1)) & ~(A_ALIGN - 1))
 
 // avail
-inline UMax tail_avail(void) {
+inline UMax tail_avail() {
     UMax t = ALIGN_UP(mem_top);
     return (t <= BLOCK_SIZE) ? (BLOCK_SIZE - t) : 0;
 }
 
 // 0 = freeable
-static inline struct mem_part* grab_empty_slot(void) {
+static inline struct mem_part* grab_empty_slot() {
     for (UMax k = 0; k < BLOCK_LIST_SIZE; ++k)
         if (!mem_block_list[k].freeable && mem_block_list[k].size == 0)
             return &mem_block_list[k];
@@ -67,7 +67,7 @@ Bool updateMem() {
 
 // bump fast
 static inline struct mem_part* bump_alloc(UMax size) {
-    size    = ALIGN_UP(size);
+    size = ALIGN_UP(size);
     mem_top = ALIGN_UP(mem_top);
 
     if (rover.current_block_index >= BLOCK_LIST_SIZE) return NULL;

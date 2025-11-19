@@ -4,7 +4,7 @@
 #include "../madd-types.h"
 U0 print_u128(U128 n) {
     char buf[50];
-    U8 i = 49;
+    U8 i = sizeof(buf)-1;
     buf[i] = '\0';
     do
     {
