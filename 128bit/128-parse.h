@@ -83,7 +83,7 @@ static inline U128 str_to_u128(const char *s, U8 base) {
     return out;
 }
 
-static inline I128 str_to_i128(const char *s, UMax base) {
+static inline I128 str_to_i128(const char *s, U8 base) {
     I128 out = 0;
     if (!s)
         return 0;

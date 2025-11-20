@@ -12,8 +12,8 @@ typedef UMin Bool;
 #else
 typedef _Bool Bool;
 #endif
-typedef UMin U1;
-typedef UMin I1;
+typedef Bool U1;
+typedef Bool I1;
 typedef unsigned char U8;
 #define U8_MAX 0xFF
 typedef signed char I8;
