@@ -5,4 +5,4 @@ This is a general and specialized C library that includes:
   * A simple flags system  
   * And generic C hackery macros!  
 
-Made by Fanta AKA DrMaddMan
+Made by Fanta AKA DrMaddMam
