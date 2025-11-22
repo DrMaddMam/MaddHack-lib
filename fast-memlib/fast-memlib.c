@@ -75,7 +75,7 @@ static inline struct mem_part* bump_alloc(UMax size) {
 
     struct mem_part *p = &CURRENT_BLOCK;
     p->location = (U8*)MAIN_BLOCK + mem_top;
-    p->size     = size;
+    p->size = size;
     p->freeable = false;
 
     mem_top += size;
@@ -84,12 +84,15 @@ static inline struct mem_part* bump_alloc(UMax size) {
     ++rover.current_block_index;
     if (rover.current_block_index < BLOCK_LIST_SIZE) {
         mem_block_list[rover.current_block_index].location = (U8*)MAIN_BLOCK + mem_top;
-        mem_block_list[rover.current_block_index].size     = 0;
+        mem_block_list[rover.current_block_index].size = 0;
         mem_block_list[rover.current_block_index].freeable = false;
     }
     return p;
 }
 
+/// @brief allocate memory
+/// @param size 
+/// @return pointer to mem_part struct describing allocated memory
 struct mem_part* getMem(UMax size) {
     if (!size) return NULL;
 #ifdef UPDATE_MEM_ON_FUNC_CALL
@@ -102,22 +105,22 @@ struct mem_part* getMem(UMax size) {
     for (UMax i = 0; i < BLOCK_LIST_SIZE; ++i) { // ++i is better, and (++)i will die on this hill
         if (!mem_block_list[i].freeable) continue;
 
-        U0  *base =  mem_block_list[i].location;
-        UMax blk  =  mem_block_list[i].size;
+        U0* base = mem_block_list[i].location;
+        UMax blk = mem_block_list[i].size;
 
         if (blk < need) continue;
 
         // if big enough to split off a tail chunk, do it
         if (blk >= need + A_ALIGN) {
-            struct mem_part *tail = grab_empty_slot();
+            struct mem_part* tail = grab_empty_slot();
             if (tail) {
                 // head becomes the allocated block
-                mem_block_list[i].size     = need;
+                mem_block_list[i].size = need;
                 mem_block_list[i].freeable = false;
 
                 // tail is the remainder (still free)
                 tail->location = (U8*)base + need;
-                tail->size     = blk - need;
+                tail->size = blk - need;
                 tail->freeable = true;
 
                 ++live_cnt;
@@ -143,12 +146,12 @@ Bool resetMem() {
     rover.current_block_index = 0;
 
     mem_block_list[0].location = (U8*)MAIN_BLOCK;
-    mem_block_list[0].size     = 0;
+    mem_block_list[0].size = 0;
     mem_block_list[0].freeable = false;
 
     for (UMax i = 1; i < BLOCK_LIST_SIZE; ++i) {
         mem_block_list[i].location = (U8*)MAIN_BLOCK;
-        mem_block_list[i].size     = 0;
+        mem_block_list[i].size = 0;
         mem_block_list[i].freeable = false;
     }
     return true;
@@ -161,13 +164,17 @@ UMax cleanupMem() {
     for(UMax i = 0; i < live_cnt; ++i) {
         if(mem_block_list[i].freeable == false && mem_block_list[i].size > 0) {
             ++unfreed;
+            mem_block_list[i].freeable = true;
+            mem_block_list[i].size = 0;
         }
     }
     live_cnt = 0;
     return unfreed;
 }
 
-// freeMem: lazy
+/// @brief free mem_part and mark as reusable
+/// @param part 
+/// @return if the memory was successfully freed
 inline Bool freeMem(struct mem_part* part) {
     if (part && !part->freeable) {
         part->freeable = true;
