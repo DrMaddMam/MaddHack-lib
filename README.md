@@ -61,19 +61,19 @@ It is a quartet of functions related to 128 bit integers
 -- Arg 1: const char* s (string pointer)  
 -- Arg 2: UMin Base (the base for the number, 10/16)  
 ```print_u128```
--- Prints a U128 to a buff
+-- Prints a U128 to a buff  
 -- Arg 1: U128 n (the specifed number)  
 -- Arg 2: U8* buf (the buffer to print to)  
--- Arg 3: UMin bufsize (the size of the buffer)
+-- Arg 3: UMin bufsize (the size of the buffer)  
 ```print_i128```
--- Prints a I128 to a buff
+-- Prints a I128 to a buff  
 -- Arg 1: I128 n (the specifed number)  
 -- Arg 2: U8* buf (the buffer to print to)  
--- Arg 3: UMin bufsize (the size of the buffer)
+-- Arg 3: UMin bufsize (the size of the buffer)  
 # Flags
 It is a flag system to efficiently use an integer to store {bit count} flags
 ```setFlag```
--- Sets a flag in the specified number pointer
+-- Sets a flag in the specified number pointer  
 -- Arg 1: UMax flag (the flag to be set)  
 -- Arg 2: UMax *ptr (the number to have that flag set)  
 -- Returns if it was successful  
