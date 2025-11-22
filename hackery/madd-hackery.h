@@ -2,8 +2,7 @@
 #define MADD_HACKERY_H
 #include "../madd-types.h"
 inline void call(void *func) {
-    void (*fptr)() = func;
-    return fptr();
+    return ((void (*)())func)();
 }
 inline void* makeptr(UMax addr) {
     return (void*)addr;
