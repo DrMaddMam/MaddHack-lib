@@ -1,10 +1,10 @@
 #ifndef BIT_PARSE_H
 #define BIT_PARSE_H
 
-#include <stdbool.h>
-#include <stdint.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #ifndef NO_QUADMATH
 #include <quadmath.h>
 #endif
@@ -20,10 +20,10 @@ static inline unsigned digit_val(char c) {
     return 255u;
 }
 
-static inline U128 str_to_u128(const char *s, U8 base) {
+U128 str_to_u128(const char* s, UMin base) {
     if (!s)
         return 0;
-    
+
     U128 out = 0;
 
     while (isspace((unsigned char)*s))
@@ -76,7 +76,7 @@ static inline U128 str_to_u128(const char *s, U8 base) {
     return out;
 }
 
-static inline I128 str_to_i128(const char *s, U8 base) {
+I128 str_to_i128(const char* s, UMin base) {
     I128 out = 0;
     if (!s)
         return 0;
@@ -91,7 +91,7 @@ static inline I128 str_to_i128(const char *s, U8 base) {
         ++s;
     }
 
-    const char *p = s;
+    const char* p = s;
 
     // just in case, check the base
     if (base == 0) {
@@ -143,7 +143,7 @@ static inline I128 str_to_i128(const char *s, U8 base) {
         U128 limit = ((U128)1 << 127);
         if (mag > limit)
             return false; // overflow
-        if (mag == limit){
+        if (mag == limit) {
             out = I128_MIN; // exactly -2^127
         }
         else {

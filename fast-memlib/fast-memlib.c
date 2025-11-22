@@ -11,16 +11,16 @@ _Alignas(max_align_t) static U8 mem_block[BLOCK_SIZE];
 
 // close enough to linked list
 struct mem_part {
-    U0*  location;   // first for *(void**)
+    U0* location;   // first for *(void**)
     UMax size;
     Bool freeable;
-} mem_block_list[BLOCK_LIST_SIZE] = {{mem_block, 0, false}};
+} mem_block_list[BLOCK_LIST_SIZE] = { {mem_block, 0, false} };
 
 #define MAIN_BLOCK mem_block
 #define CURRENT_BLOCK mem_block_list[rover.current_block_index]
 
-struct mem_rover { UMax current_block_index; } rover = {0};
-static UMax mem_top  = 0;
+struct mem_rover { UMax current_block_index; } rover = { 0 };
+static UMax mem_top = 0;
 static UMax live_cnt = 0; // amount of block list used
 
 // honestly just learned that align is fast and had to add some devil code
@@ -55,7 +55,7 @@ Bool updateMem() {
             if (i_end == j_start) {
 
                 mem_block_list[i].size += mem_block_list[j].size;
-                mem_block_list[j].size  = 0;
+                mem_block_list[j].size = 0;
 
                 j = (UMax)-1;
                 i_end = (U8*)mem_block_list[i].location + mem_block_list[i].size;
@@ -73,7 +73,7 @@ static inline struct mem_part* bump_alloc(UMax size) {
     if (rover.current_block_index >= BLOCK_LIST_SIZE) return NULL;
     if (mem_top + size > BLOCK_SIZE) return NULL;
 
-    struct mem_part *p = &CURRENT_BLOCK;
+    struct mem_part* p = &CURRENT_BLOCK;
     p->location = (U8*)MAIN_BLOCK + mem_top;
     p->size = size;
     p->freeable = false;
@@ -161,8 +161,8 @@ UMax cleanupMem() {
     mem_top = 0;
     rover.current_block_index = 0;
     UMax unfreed = 0;
-    for(UMax i = 0; i < live_cnt; ++i) {
-        if(mem_block_list[i].freeable == false && mem_block_list[i].size > 0) {
+    for (UMax i = 0; i < live_cnt; ++i) {
+        if (mem_block_list[i].freeable == false && mem_block_list[i].size > 0) {
             ++unfreed;
             mem_block_list[i].freeable = true;
             mem_block_list[i].size = 0;

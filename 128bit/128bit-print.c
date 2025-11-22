@@ -8,12 +8,12 @@
 /// @param bufsize 
 /// @return the buffer pointer
 U8* print_u128(U128 n, U8* buf, UMin bufsize) {
-    U8 i = bufsize-1;
+    U8 i = bufsize - 1;
     buf[i] = '\0';
     do {
         buf[--i] = '0' + (n % 10);
         n /= 10;
-    } while (n);
+    } while (n != 0 && i > 0);
     return buf;
 }
 
@@ -22,11 +22,12 @@ U8* print_u128(U128 n, U8* buf, UMin bufsize) {
 /// @param buf 
 /// @param bufsize 
 /// @return the buffer pointer
-U8 print_i128(I128 n, U8* buf, UMin bufsize) {
+U8* print_i128(I128 n, U8* buf, UMin bufsize) {
     if (n < 0) {
         buf[0] = '-';
-        return print_u128((U128)(-n), buf+1, bufsize-1);
-    } else {
+        return print_u128((U128)(-n), buf + 1, bufsize - 1);
+    }
+    else {
         return print_u128((U128)n, buf, bufsize);
     }
 }

@@ -1,6 +1,7 @@
 #ifndef MADDTYPES_H
 #define MADDTYPES_H
-#define __BYTESMAX__ __SIZEOF_POINTER__
+#define __BITSMAX__ (__SIZEOF_POINTER__ * 8)
+#define __BYTESMAX__ (__SIZEOF_POINTER__)
 typedef void U0;
 typedef void I0;
 #define false 0
