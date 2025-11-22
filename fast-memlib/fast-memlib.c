@@ -102,7 +102,7 @@ struct mem_part* getMem(UMax size) {
     // carmack ctrl-c ctrl-v
     UMax need = ALIGN_UP(size);
 
-    for (UMax i = 0; i < BLOCK_LIST_SIZE; ++i) { // ++i is better, and (++)i will die on this hill
+    for (UMax i = 0; i < BLOCK_LIST_SIZE; ++i) { // ++i is better, and ++i will die on this hill
         if (!mem_block_list[i].freeable) continue;
 
         U0* base = mem_block_list[i].location;
