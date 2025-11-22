@@ -16,18 +16,18 @@ struct mem_part {
     Bool freeable;
 } mem_block_list[BLOCK_LIST_SIZE] = {{mem_block, 0, false}};
 
-#define MAIN_BLOCK      mem_block
-#define CURRENT_BLOCK   mem_block_list[rover.current_block_index]
+#define MAIN_BLOCK mem_block
+#define CURRENT_BLOCK mem_block_list[rover.current_block_index]
 
 struct mem_rover { UMax current_block_index; } rover = {0};
 static UMax mem_top  = 0;
 static UMax live_cnt = 0; // amount of block list used
 
 // honestly just learned that align is fast and had to add some devil code
-#define A_ALIGN ((UMax)alignof(max_align_t))
+#define A_ALIGN ((UMax)_Alignof(max_align_t))
 #define ALIGN_UP(x) (((x) + (A_ALIGN - 1)) & ~(A_ALIGN - 1))
 
-// avail
+// avail + alignment space
 inline UMax tail_avail() {
     UMax t = ALIGN_UP(mem_top);
     return (t <= BLOCK_SIZE) ? (BLOCK_SIZE - t) : 0;
