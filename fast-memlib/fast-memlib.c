@@ -9,7 +9,6 @@
 // fastasf
 _Alignas(max_align_t) static U8 mem_block[BLOCK_SIZE];
 
-// close enough to linked list
 struct mem_part {
     U0* location;   // first for *(void**)
     UMax size;
@@ -20,8 +19,7 @@ struct mem_part {
 #define CURRENT_BLOCK mem_block_list[rover.current_block_index]
 
 struct mem_rover { UMax current_block_index; } rover = { 0 };
-static UMax mem_top = 0;
-static UMax live_cnt = 0; // amount of block list used
+static UMax mem_top = 0; // current top of memory in bytes
 
 // honestly just learned that align is fast and had to add some devil code
 #define A_ALIGN ((UMax)_Alignof(max_align_t))
@@ -41,7 +39,8 @@ static inline struct mem_part* grab_empty_slot() {
     return NULL;
 }
 
-// maintenance
+/// @brief merges adjacent free memory blocks
+/// @return if any merges were made
 Bool updateMem() {
     for (UMax i = 0; i < BLOCK_LIST_SIZE; ++i) {
         if (!(mem_block_list[i].freeable && mem_block_list[i].size)) continue;
@@ -139,7 +138,8 @@ struct mem_part* getMem(UMax size) {
     return bump_alloc(size);
 }
 
-// reset
+/// @brief resets memory allocator
+/// @return if successful
 Bool resetMem() {
     mem_top = 0;
     live_cnt = 0;
@@ -156,7 +156,8 @@ Bool resetMem() {
     }
     return true;
 }
-// cleanup
+/// @brief cleans up all non-freeable memory blocks
+/// @return the amount of unfreed blocks that were marked freeable
 UMax cleanupMem() {
     mem_top = 0;
     rover.current_block_index = 0;
@@ -175,7 +176,7 @@ UMax cleanupMem() {
 /// @brief free mem_part and mark as reusable
 /// @param part 
 /// @return if the memory was successfully freed
-inline Bool freeMem(struct mem_part* part) {
+static inline Bool freeMem(struct mem_part* part) {
     if (part && !part->freeable) {
         part->freeable = true;
         if (live_cnt) --live_cnt;

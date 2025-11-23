@@ -10,16 +10,23 @@ struct mem_part {
     UMax size;
     Bool freeable;
 };
-inline UMax freeMem(struct mem_part* part) {
+Bool resetMem();
+Bool updateMem();
+UMax cleanupMem();
+/// @brief free mem_part and mark as reusable
+/// @param part 
+/// @return if the memory was successfully freed
+static inline UMax freeMem(struct mem_part* part) {
     if (part && !part->freeable) {
-        // if not freed, free
         part->freeable = true;
-        // dont mess with size
+        if (live_cnt) --live_cnt;
+
+        if (live_cnt == 0) {
+
+            resetMem();
+        }
         return true;
     }
     return false;
 }
-Bool resetMem();
-Bool updateMem();
-UMax cleanupMem();
 #endif // FASTMEMLIB_H

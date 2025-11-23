@@ -1,5 +1,7 @@
 #ifndef FASTMEMLIB_GLOBALS_H
 #define FASTMEMLIB_GLOBALS_H
+#include "../madd-types.h"
+static UMax live_cnt = 0; // amount of block list used
 #ifndef BLOCK_LIST_SIZE_REPLACE
 #define BLOCK_LIST_SIZE 256
 #endif

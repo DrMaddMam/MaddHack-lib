@@ -2,8 +2,11 @@
 #define STRREV_H
 #include "../madd-types.h"
 
-U0 strrev(char* s) {
-    if (!s) return;
+/// @brief reverses a string in place
+/// @param s 
+/// @return if successful
+Bool strrev(char* s) {
+    if (!s) return false;
     // char* start = s; // not needed, just use the original pointer 
     char* end = s;
     while (*end) {
@@ -17,5 +20,6 @@ U0 strrev(char* s) {
         ++s;
         --end;
     }
+    return true;
 }
 #endif // STRREV_H

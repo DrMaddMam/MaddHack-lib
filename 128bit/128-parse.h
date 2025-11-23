@@ -20,6 +20,10 @@ static inline unsigned digit_val(char c) {
     return 255u;
 }
 
+/// @brief converts a string to a U128 integer
+/// @param s 
+/// @param base 
+/// @return the U128 integer, or 0 on failure
 U128 str_to_u128(const char* s, UMin base) {
     if (!s)
         return 0;
@@ -76,6 +80,10 @@ U128 str_to_u128(const char* s, UMin base) {
     return out;
 }
 
+/// @brief converts a string to an I128 integer
+/// @param s 
+/// @param base 
+/// @return the I128 integer, or 0 on failure
 I128 str_to_i128(const char* s, UMin base) {
     I128 out = 0;
     if (!s)

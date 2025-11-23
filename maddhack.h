@@ -9,6 +9,7 @@
 /// @brief initialize MaddHack resources
 /// @return if initialization was successful
 inline Bool initMaddHack() { return (initFlags() && resetMem()); }
+
 /// @brief cleanup MaddHack resources
 /// @return amount of errors during cleanup
 inline UMax exitMaddHack() {
