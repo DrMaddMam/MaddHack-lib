@@ -6,14 +6,14 @@ This is a general and specialized C library that includes:
   * And generic C hackery macros!  
 
 Made by Fanta AKA DrMaddMam
-## Documentation
-# MaddHack Initizalizers/Cleanup
+# Documentation
+## MaddHack Initizalizers/Cleanup
 Two functions that should be run on the start and end of a program, they initalize flags and reset the memory library  
 ```initMaddHack```
 -- Returns if all init functions were successful  
 ```exitMaddHack```
 -- Returns the amount of errors detected in your code (Ex. Unfreed memory)  
-# Fast Memory Library
+## Fast Memory Library
 My fast memory library is a DOOM-like memory library that has a set arrary in memory on startup that you can allocate (getMem) and mark as unused (freeMem)  
 ```
 int main(int argc, char** argv) {
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     exitMaddHack()
 }
 ```
-# 128 Bit parser
+## 128 Bit parser
 It is a quartet of functions related to 128 bit integers  
 ```str_to_u128```
 -- Converts a string to a U128 integer  
@@ -70,7 +70,7 @@ It is a quartet of functions related to 128 bit integers
 -- Arg 1: I128 n (the specifed number)  
 -- Arg 2: U8* buf (the buffer to print to)  
 -- Arg 3: UMin bufsize (the size of the buffer)  
-# Flags
+## Flags
 It is a flag system to efficiently use an integer to store {bit count} flags
 ```setFlag```
 -- Sets a flag in the specified number pointer  
